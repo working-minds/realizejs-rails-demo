@@ -5,24 +5,8 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
+    @issues = Issue.where(project_id: params[:project_id])
     @project = Project.find(params[:project_id])
-
-    params[:p] ||= 1
-    params[:q] ||= {}
-
-    @issues = Issue.where(project_id: params[:project_id]).ransack(params[:q]).result
-    @issues_count = @issues.size
-    @issues = @issues.page(params[:p]).per(params[:per_page])
-
-    respond_to do |format|
-      format.html
-      format.json { render json: {
-          issues: @issues.as_json(),
-          count: @issues_count
-      }.to_json
-      }
-    end
-
   end
 
   # GET /issues/1
@@ -48,7 +32,6 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.save
-        format.js {render js: "window.location = '#{project_issues_path(id: params[:id], project_id: params[:project_id])}'"}
         format.html { redirect_to @project, notice: 'Issue was successfully created.' }
         format.json { render :show, status: :created, location: @issue }
       else
@@ -63,7 +46,6 @@ class IssuesController < ApplicationController
   def update
     respond_to do |format|
       if @issue.update(params.require(:issue).permit(:titulo, :descricao))
-        format.js{render js: "window.location = '#{project_issues_path}'"}
         format.html { redirect_to project_issue_path, notice: 'Issue was successfully updated.' }
         format.json { render :show, status: :ok, location: @issue }
       else
@@ -78,8 +60,7 @@ class IssuesController < ApplicationController
   def destroy
     @issue.destroy
     respond_to do |format|
-      format.js{render js: "window.location = '#{project_path(@project)}'"}
-      #format.html { redirect_to project_path(@project), notice: 'Issue was successfully destroyed.' }
+      format.html { redirect_to project_path(@project), notice: 'Issue was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

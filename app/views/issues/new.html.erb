@@ -1,37 +1,4 @@
-<%
-  form_props = {
-      resource: 'issue',
-      inputs: {
-          titulo: {
-              label: 'Title',
-              formStyle: 'oneLine'
-          },
-          descricao: {
-              label: 'Description',
-              component: 'textarea',
-              formStyle: 'oneLine'
-          }
-      },
-      action: project_issues_path(id: params[:id], project_id: params[:project_id]),
-      otherButtons: [{
-                     name: 'back',
-                     href: project_path(id: @project.id),
-                     element: 'a'
-                 }]
-  }
+<h1>New Issue</h1>
 
-%>
-
-<h2>New Issue</h2>
-<%
-  form = <<-JSX
-    <Form #{jsx_spread(form_props)}>
-    </Form>
-  JSX
-%>
-
-<div class="card">
-  <div class="card-content">
-    <%= render_jsx(form) %>
-  </div>
-</div>
+<%= render 'form' %>
+<%= link_to 'Back', project_path(id: @project.id) %>

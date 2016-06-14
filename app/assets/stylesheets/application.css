@@ -11,11 +11,5 @@
  * file per style scope.
  *
  *= require_tree .
- *= require materialize/materialize
- *= require realize-js/realize.min
  *= require_self
  */
-
-.card {
-    overflow: visible !important;
-}

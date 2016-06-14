@@ -1,33 +1,28 @@
+<h1>New Project</h1>
 
-<%
-  form_props = {
-    resource: 'project',
-    inputs: {
-      name: {
-        label: 'Name',
-        component: 'text',
-        formStyle: 'oneLine',
-      }
-    },
-    action: projects_path,
-    otherButtons: [{
-        name: 'back',
-        href: projects_path,
-        element: 'a'
-    }]
-  }
+<%= form_for :project, :url => { :action => :create } do |p| %>
+    <p>
+      <%= p.label :Name %><br>
+      <%= p.text_field :name %>
+    </p>
 
-  form = <<-JSX
-    <Form #{jsx_spread(form_props)} />
-  JSX
-%>
+    <% if @project.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@project.errors.count, "error") %> prohibited
+            this project from being saved:
+          </h2>
+          <ul>
+            <% @project.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
-<h2>New Project</h2>
-<div class="card">
-  <div class="card-content">
-    <%= render_jsx(form) %>
-  </div>
-</div>
+    <div class="actions">
+      <%= p.submit %>
+    </div>
+<% end %>
 
-
-
+<%= link_to 'Back', projects_path %>

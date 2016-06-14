@@ -4,22 +4,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-   # @projects = Project.all
-    params[:p] ||= 1
-    params[:q] ||= {}
+    @projects = Project.all
 
-    @projects= Project.ransack(params[:q]).result
-    @projects_count = @projects.size
-    @projects = @projects.page(params[:p]).per(params[:per_page])
-
-    respond_to do |format|
-      format.html
-      format.json { render json: {
-            projects: @projects.as_json(),
-            count: @projects_count
-        }.to_json
-      }
-    end
   end
 
   # GET /projects/1
@@ -47,7 +33,6 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.js{render js: "window.location = '#{projects_path}'"}
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
@@ -64,7 +49,6 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.update(params.require(:project).permit(:name))
-        format.js{render js: "window.location = '#{projects_path}'"}
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -80,7 +64,6 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.js{render js: "window.location = '#{projects_path}'"}
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end

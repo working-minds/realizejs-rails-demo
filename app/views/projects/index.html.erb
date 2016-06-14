@@ -1,43 +1,51 @@
-
 <%
-  data = {
-      url: projects_path,
-      resource: 'project',
-      haveShowAction: true,
-      paginationOnTop: false,
-      eagerLoad: true,
-      dataRowsParam:'projects',
-      columns: {
-          name: {
-              name: 'name',
-              label: 'Name',
-              format:'text'
-          }
-      }
+  input = {
+      name: {label: 'Listing Project'}
   }
-
-
-  grid = <<-JSX
-    <Grid #{jsx_spread(data)} />
-  JSX
-
 
 %>
 
+
+<p id="notice"><%= notice %></p>
 
 <h1>Listing Projects</h1>
 <%
+ data = {
+
+     actionButtons:{
+
+     }
+
+ }
 
 %>
 
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= link_to 'Show', project %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project', new_project_path %>
+
 <div class="card">
   <div class="card-content">
-    <%= render_jsx(grid) %>
   </div>
 </div>
-
-
-
-
-
-

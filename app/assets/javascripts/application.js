@@ -14,17 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require react_ujs
-//= require materialize/materialize
-//= require numeral/numeral
-//= require numeral/languages
-//= require string/string
-//= require jquery-serialize-object/jquery.serialize-object
-//= require jquery.inputmask/jquery.inputmask.bundle
-//= require realize-js/realize.min
-//= require configure
-//= require translations
-//= require_dir ./components
 //= require_tree .
 
-numeral.language('pt-br');
-Realize.i18n.setLocale('pt-BR');
