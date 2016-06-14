@@ -1,0 +1,48 @@
+
+<%
+
+  data = {
+      url: project_issues_path(project_id: @project.id),
+      resource: 'issue',
+      haveShowAction: true,
+      paginationOnTop: false,
+      eagerLoad: true,
+      dataRowsParam:'issues',
+      columns: {
+          title: {
+              name: 'titulo',
+              label: 'Name',
+              format:'text'
+          },
+          descricao: {
+              name: 'descricao',
+              label: 'Discription',
+              format:'text'}
+      }
+  }
+
+
+  grid = <<-JSX
+    <Grid #{jsx_spread(data)} />
+  JSX
+%>
+
+<p id="notice"><%= notice %></p>
+<div>
+  <p>
+    <strong>Name:</strong>
+    <%= @project.name %>
+  </p>
+</div>
+
+
+<div class="card">
+  <div class="card-content">
+    <h2>Issues</h2>
+    <%= render_jsx(grid) %>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_project_path(id: @project.id) %> |
+<%= link_to 'Listing Issues', project_issues_path(project_id: @project.id) %> |
+<%= link_to 'Back', projects_path %>

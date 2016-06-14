@@ -1,0 +1,185 @@
+== Tutorial
+		
+Esse Tutorial tem como objetivo auxiliar o usuário na conversão de um projeto, criado pelo mesmo, para o React. Para exemplificar como funciona esse processo de conversão,  foi criado, em Rails, um projeto de CRUD (Create, Read, Update e Delete) simples de Projetos e Issues.
+
+== Pré-requisitos
+
+     Para que seja possível realizar a conversão do projeto de CRUD criado para React é recomendado  um conjunto de fatores :
+
+=== Selecione um gestor de pacotes
+
+	É necessário obter o Realize.js para pelo http://bower.io[Bower] ou como um https://www.npmjs.com/package/realize-js[pacote node] . Para esse tutorial em específico foi empregado o Bower.
+
+=== Escolha um editor de texto ou IDE
+
+	Para facilitar tanto a criação de seu projeto de CRUD, quanto a conversão do mesmo para React, é recomendado a utlização de uma IDE, como o RubyMine, ou um editor de texto, como o Atom. Para esse tutorial foi empregado o RubyMine.
+
+=== Ransack 
+
+	A Ransack é uma Meta Search, criada por Ernie Miller, compatível para Ruby and Rails. Para mais informações acesse https://github.com/activerecord-hackery/ransack.
+
+=== Kaminari
+
+	 A Kaminari é um Scope e Engine para Frameworks e ORMs para aplicacões modernas de Web. Para mais informações acesse : https://github.com/amatsuda/kaminari.
+
+== Gemas necessárias para o projeto
+
+	Para utilizar o React, Ransack e Kaminari em seu projeto é preciso instalar as gemas . correspondentes. Na Gemfile de seu projeto adicione as seguintes gemas:
+
+gem 'react-rails'
+gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'kaminari'
+
+	A seguir abra seu terminal e execute o comando:
+[source, bash]
+----
+$ bundle install
+---
+
+== Dependência do Realize
+
+	Uma vez instalados todas as gemas necessárias para utilizar o React, rassack  e  kaminari, a próxima etapa consiste em instalar a dependência do realize. No terminal digite:
+
+[source, bash]
+	---
+$ bower install http://git.wkm.com.br/wkm.realizejs.
+---
+
+ Caso não possua o Bower em sua  máquina , siga o guia:
+
+* http://bower.io/#getting-started.
+
+=== Configuração para utilizar o Realize
+
+	Uma vez instalada a dependênica do Realize, ainda  é necessário  configurar alguns scripts. O primeiro script que precisa ser modificado é o application.js (assets/javascripts/application.js), adicionando:
+
+        [source, javascript]
+        ---
+        //= require jquery
+        //= require jquery_ujs
+        //= require turbolinks
+        //= require react_ujs
+        //= require materialize/materialize
+        //= require numeral/numeral
+        //= require numeral/languages
+        //= require string/string
+        //= require jquery-serialize-object/jquery.serialize-object
+        //= require jquery.inputmask/jquery.inputmask.bundle
+        //= require realize-js/realize.min
+        //= require configure
+        //= require translations
+        //= require_dir ./components
+        //= require_tree .
+        numeral.language('pt-br');
+        Realize.i18n.setLocale('pt-BR');
+         ---
+
+    O próximo script que necessita de alteração é o application.css (assets/javascripts/stylesheets/application.css), adicionando:
+
+      [source, css]
+      ---
+       *= require_tree .
+       *= require materialize/materialize
+       *= require realize-js/realize.min
+       *= require_self
+       */
+
+      .card {
+          overflow: visible !important;
+      }
+     ---
+	Por fim, o último script que deve alterado é o configure.js.erb (assets/javascripts/components), adicionando:
+
+[source, javascript]
+	---
+Realize.setConfig({
+ theme: 'materialize',
+ locale: 'en',
+ restUrls: {
+   index: ':url.json',
+   show: ':url/:id',
+   add: ':url/new',
+   create: ':url',
+   edit: ':url/:id/edit',
+   update: ':url/:id',
+   destroy: ':url/:id'
+ },
+
+ restMethods: {
+   index: 'GET',
+   show: 'GET',
+   add: 'GET',
+   create: 'POST',
+   edit: 'GET',
+   update: 'PUT',
+   destroy: 'DELETE'
+ },
+
+ grid: {
+   pagination: {
+     perPage: 10,
+     type: 'default',
+     perPageOptions: [
+       { name: '10', value: 10 },
+       { name: '20', value: 20 },
+       { name: '50', value: 50 }
+     ]
+   },
+
+   sort: {
+     param: 'q[s]',
+     fieldValueFormat: '%{field} %{direction}'
+   }
+ }
+});
+---
+ 	Após essas alterações já é possível converter as views do CRUD para React. 
+
+== Conversão das Views
+
+	Nesse ponto já  é possível iniciar a conversão das Views criadas em Rails  para React. Nas classes controladoras Projeto e Issue, para o caso desse tutorial , altere o método def: respectivamente por:
+
+[source, ruby]
+---
+{
+  params[:p] ||= 1
+              params[:q] ||= {}
+             @projects= Project.ransack(params[:q]).result
+             @projects_count = @projects.size
+             @projects = @projects.page(params[:p]).per(params[:per_page])
+            respond_to do |format|
+             format.html
+             format.json { render json: {
+                   projects: @projects.as_json(),
+                   count: @projects_count
+               }.to_json
+             }
+            end
+
+}
+---
+
+E
+
+[source,ruby]
+---
+	{
+              @project = Project.find(params[:project_id])
+              params[:p] ||= 1
+              params[:q] ||= {}
+              @issues = Issue.where(project_id: params[:project_id]).ransack(params[:q]).result
+              @issues_count = @issues.size
+              @issues = @issues.page(params[:p]).per(params[:per_page])
+              respond_to do |format|
+                  format.html
+                  format.json { render json: {
+                    issues: @issues.as_json(),
+                    count: @issues_count
+                  }.to_json
+                }
+             end
+           }
+---
+
+Para as Views é necessário ver os componentes do Realize, para realizar as implementações necessárias. Para a CRUD de Projeto e Issues foram utilizados os componentes: Form, Grid e Button.
+

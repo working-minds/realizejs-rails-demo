@@ -1,0 +1,39 @@
+
+<%
+  if @issue.id.nil?
+    current_path = project_issues_path(project_id: @project.id)
+  else
+    current_path = project_issue_path(id: @issue.id, project_id: @project.id)
+  end
+%>
+<%= form_for @issue, url: current_path do |f| %>
+
+    <p>
+      <%= f.label :Title %><br>
+      <%= f.text_field :titulo %>
+    </p>
+
+    <% if @issue.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@issue.errors.count, "error") %> prohibited
+            this issue from being saved:
+          </h2>
+          <ul>
+            <% @issue.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <p>
+      <%= f.label :Description %><br>
+      <%= f.text_area :descricao %>
+    </p>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+<% end %>

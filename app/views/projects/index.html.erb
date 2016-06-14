@@ -1,0 +1,43 @@
+
+<%
+  data = {
+      url: projects_path,
+      resource: 'project',
+      haveShowAction: true,
+      paginationOnTop: false,
+      eagerLoad: true,
+      dataRowsParam:'projects',
+      columns: {
+          name: {
+              name: 'name',
+              label: 'Name',
+              format:'text'
+          }
+      }
+  }
+
+
+  grid = <<-JSX
+    <Grid #{jsx_spread(data)} />
+  JSX
+
+
+%>
+
+
+<h1>Listing Projects</h1>
+<%
+
+%>
+
+<div class="card">
+  <div class="card-content">
+    <%= render_jsx(grid) %>
+  </div>
+</div>
+
+
+
+
+
+

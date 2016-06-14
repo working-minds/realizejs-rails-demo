@@ -1,0 +1,47 @@
+<%
+  data = {
+      url: project_issues_path(project_id: @project.id),
+      resource: 'issue',
+      haveShowAction: true,
+      paginationOnTop: false,
+      eagerLoad: true,
+      dataRowsParam:'issues',
+      columns: {
+          title: {
+              name: 'titulo',
+              label: 'Name',
+              format:'text'
+          },
+          descricao: {
+              name: 'descricao',
+              label: 'Discription',
+              format:'text'}
+      }
+  }
+
+
+  grid = <<-JSX
+    <Grid #{jsx_spread(data)} />
+  JSX
+
+
+%>
+
+<%
+  button = <<-JSX
+      <Button
+        name='Back'
+        href= '#{project_path(id: @project.id)}'
+        element='a'
+      />
+  JSX
+%>
+
+<h2>Listing Issues</h2>
+<div class="card">
+  <div class="card-content">
+    <%= render_jsx(grid) %>
+    <%= render_jsx(button) %>
+  </div>
+</div>
+

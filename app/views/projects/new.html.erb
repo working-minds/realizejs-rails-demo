@@ -1,0 +1,33 @@
+
+<%
+  form_props = {
+    resource: 'project',
+    inputs: {
+      name: {
+        label: 'Name',
+        component: 'text',
+        formStyle: 'oneLine',
+      }
+    },
+    action: projects_path,
+    otherButtons: [{
+        name: 'back',
+        href: projects_path,
+        element: 'a'
+    }]
+  }
+
+  form = <<-JSX
+    <Form #{jsx_spread(form_props)} />
+  JSX
+%>
+
+<h2>New Project</h2>
+<div class="card">
+  <div class="card-content">
+    <%= render_jsx(form) %>
+  </div>
+</div>
+
+
+

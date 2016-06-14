@@ -1,0 +1,53 @@
+
+<%
+  form_props = {
+      action: project_issue_path(id: params[:id], project_id: params[:project_id]),
+      method: 'PUT',
+      data: @issue,
+      resource: 'issue',
+      multipart: true,
+      readOnly: false
+  }
+
+%>
+
+<%
+  form = <<-JSX
+     <Form #{jsx_spread(form_props)}
+       inputs= {{
+             titulo: {
+             label: 'Title',
+             formStyle: 'oneLine'
+             },
+             descricao: {
+             label: 'Discription',
+             formStyle: 'oneLine'
+             }
+           }}
+           otherButtons= {[
+                {
+                 name: 'Show',
+                 icon: '',
+                 element: 'a',
+                 href: '#{project_issue_path(id: params[:id], project_id: params[:project_id])}'
+                  },
+                {
+                 name: 'Back',
+                 icon: '',
+                 element: 'a',
+                 href: '#{project_issues_path(id: params[:id], project_id: params[:project_id])}'
+                }]
+                 }
+     />
+  JSX
+%>
+
+
+<div class="card">
+  <div class="card-content">
+    <h2>Editing Issue</h2>
+    <%= render_jsx(form) %>
+  </div>
+</div>
+
+

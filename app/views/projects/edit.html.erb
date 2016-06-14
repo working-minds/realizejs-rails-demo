@@ -1,0 +1,49 @@
+<%
+  form_props = {
+      action: project_path(id: params[:id], project_id: params[:project_id]),
+      method: 'PUT',
+      data: @project,
+      resource: 'project',
+      multipart: true,
+      readOnly: false
+  }
+
+%>
+
+<%
+  form = <<-JSX
+     <Form #{jsx_spread(form_props)}
+       inputs= {{
+             name: {
+             label: 'Project Name',
+             formStyle: 'oneLine'
+             }
+           }}
+           otherButtons= {[
+                {
+                 name: 'Show',
+                 icon: '',
+                 element: 'a',
+                 href: '#{project_path(id: params[:id], project_id: params[:project_id])}'
+                  },
+                {
+                 name: 'Back',
+                 icon: '',
+                 element: 'a',
+                 href: '#{projects_path(id: params[:id], project_id: params[:project_id])}'
+                }]
+                 }
+     />
+  JSX
+%>
+
+
+<div class="card">
+  <div class="card-content">
+    <h2>Editing Project</h2>
+    <%= render_jsx(form) %>
+  </div>
+</div>
+
+
+
