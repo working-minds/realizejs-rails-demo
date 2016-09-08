@@ -1,8 +1,8 @@
 
 <% if issue.id %>
 <tr>
-    <td><strong>Title:</strong> <%= issue.titulo %></td>
-    <td><strong>Description:</strong> <%= issue.descricao %></td>
+    <td><strong>Title:</strong> <%= issue.title %></td>
+    <td><strong>Description:</strong> <%= issue.description%></td>
     <td><%= link_to 'Show', project_issue_path(id: issue.id, project_id: @project.id) %></td>
     <td><%= link_to 'Edit', edit_project_issue_path(id: issue.id, project_id: @project.id) %></td>
     <td><%= link_to 'Delete', project_issue_path(id: issue.id, project_id: @project.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>

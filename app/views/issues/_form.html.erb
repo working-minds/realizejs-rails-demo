@@ -10,13 +10,13 @@
 
     <p>
       <%= f.label :Title %><br>
-      <%= f.text_field :titulo %>
+      <%= f.text_field :title %>
     </p>
 
     <% if @issue.errors.any? %>
         <div id="error_explanation">
           <h2>
-            <%= pluralize(@issue.errors.count, "error") %> prohibited
+            <%= pluralize(@issue.errors.count, 'error') %> prohibited
             this issue from being saved:
           </h2>
           <ul>
@@ -29,7 +29,7 @@
 
     <p>
       <%= f.label :Description %><br>
-      <%= f.text_area :descricao %>
+      <%= f.text_area :description %>
     </p>
 
     <div class="actions">

@@ -14,8 +14,8 @@
   <tbody>
     <% @issues.each do |issue| %>
       <tr>
-        <td><%= issue.titulo %></td>
-        <td><%= issue.descricao %></td>
+        <td><%= issue.title %></td>
+        <td><%= issue.description %></td>
         <td><%= link_to 'Show', project_issue_path(id: issue.id) %></td>
         <td><%= link_to 'Edit', edit_project_issue_path(id: issue.id) %></td>
         <td><%= link_to 'Delete', project_issue_path(id: issue.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
