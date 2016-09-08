@@ -1,28 +1,4 @@
 <h1>New Project</h1>
 
-<%= form_for :project, :url => { :action => :create } do |p| %>
-    <p>
-      <%= p.label :Name %><br>
-      <%= p.text_field :name %>
-    </p>
-
-    <% if @project.errors.any? %>
-        <div id="error_explanation">
-          <h2>
-            <%= pluralize(@project.errors.count, "error") %> prohibited
-            this project from being saved:
-          </h2>
-          <ul>
-            <% @project.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-
-    <div class="actions">
-      <%= p.submit %>
-    </div>
-<% end %>
-
+<%= render 'form' %>
 <%= link_to 'Back', projects_path %>

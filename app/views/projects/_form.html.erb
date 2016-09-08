@@ -1,7 +1,15 @@
-<%= form_for(@project) do |f| %>
+<%
+  if @project.id.nil?
+    current_path = projects_path
+  else
+    current_path = project_path(id: @project.id)
+  end
+%>
+
+<%= form_for @project, url: current_path do |f| %>
   <% if @project.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+      <h2><%= pluralize(@project.errors.count, 'error') %> prohibited this project from being saved:</h2>
 
       <ul>
       <% @project.errors.full_messages.each do |message| %>
@@ -10,6 +18,11 @@
       </ul>
     </div>
   <% end %>
+
+  <p>
+    <%= f.label :Name %><br>
+    <%= f.text_field :name %>
+  </p>
 
   <div class="actions">
     <%= f.submit %>
