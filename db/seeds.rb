@@ -5,3 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Project.create name: 'Realize JS'
+Project.create name: 'Kaminari'
+Project.create name: 'Ransack'
+Project.create name: 'React'
+Project.create name: 'Confortable Mexican Sofa'
+
+Project.all.each do |project|
+  10.times do |i|
+    Issue.create project: project, title: "Issue #{i}", description: "Description #{i}"
+  end
+end
