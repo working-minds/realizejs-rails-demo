@@ -1,0 +1,12 @@
+.container .collapsible {
+  border-width: 0;
+  box-shadow: none;
+
+  .collapsible-body, .collapsible-header {
+    border-width: 0;
+  }
+
+  .collapsible-header {
+    padding: 0;
+  }
+}
