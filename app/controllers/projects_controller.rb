@@ -4,8 +4,14 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    params[:q] ||= {}
+    params[:p] ||= 1
 
+    @projects = Project.ransack(params[:q]).result.page(params[:p])
+    respond_to do |format|
+      format.html
+      format.json { render json: { data: @projects, count: @projects.total_count } }
+    end
   end
 
   # GET /projects/1
