@@ -14,6 +14,13 @@ Project.create name: 'Confortable Mexican Sofa'
 
 Project.all.each do |project|
   10.times do |i|
-    Issue.create project: project, title: "Issue #{i}", description: "Description #{i}"
+    status = 0
+    if i >= 5 and i < 8
+      status = 1
+    elsif i >= 8
+      status = 2
+    end
+
+    Issue.create project: project, title: "Issue #{i}", description: "Description #{i}", status: status
   end
 end
