@@ -1,6 +1,15 @@
-<h1>Editing Issue</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', project_issue_path(id: @issue.id) %> |
-<%= link_to 'Back', project_path(id: @project.id) %>
+<%=
+  render 'form', locals: {
+    title: "Editing #{@project.name} Issue",
+    httpMethod: 'PUT',
+    action: project_issue_path(@project.id, @issue.id),
+    otherButtons: [
+      {
+        name: 'Back',
+        style: :cancel,
+        element: :a,
+        href: project_issues_path(@project.id)
+      }
+    ]
+  }
+%>

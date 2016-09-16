@@ -5,8 +5,15 @@ class IssuesController < ApplicationController
   # GET /issues
   # GET /issues.json
   def index
-    @issues = Issue.where(project_id: params[:project_id])
+    params[:q] ||= {}
+    params[:p] ||= 1
+
+    @issues = Issue.where(project_id: params[:project_id]).ransack(params[:q]).result.page(params[:p])
     @project = Project.find(params[:project_id])
+    respond_to do |format|
+      format.html
+      format.json { render json: { data: @issues, count: @issues.total_count } }
+    end
   end
 
   # GET /issues/1
@@ -28,30 +35,23 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.json
   def create
-    @issue = @project.issues.create((params.require(:issue).permit(:titulo, :descricao)))
-
-    respond_to do |format|
-      if @issue.save
-        format.html { redirect_to @project, notice: 'Issue was successfully created.' }
-        format.json { render :show, status: :created, location: @issue }
-      else
-        format.html { render :new }
-        format.json { render json: @issue.errors, status: :unprocessable_entity }
-      end
+    @issue = @project.issues.create((params.require(:issue).permit(:title, :description)))
+    if @issue.save
+      flash[:success] = 'Issue was successfully created.'
+      render js: "window.location = '#{project_issues_path(@project.id)}'"
+    else
+      render json: @issue.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /issues/1
   # PATCH/PUT /issues/1.json
   def update
-    respond_to do |format|
-      if @issue.update(params.require(:issue).permit(:titulo, :descricao))
-        format.html { redirect_to project_issue_path, notice: 'Issue was successfully updated.' }
-        format.json { render :show, status: :ok, location: @issue }
-      else
-        format.html { render :edit }
-        format.json { render json: @issue.errors, status: :unprocessable_entity }
-      end
+    if @issue.update(params.require(:issue).permit(:title, :description))
+      flash[:success] = 'Issue was successfully updated.'
+      render js: "window.location = '#{project_issues_path(@project.id)}'"
+    else
+      render json: @issue.errors, status: :unprocessable_entity
     end
   end
 
@@ -59,10 +59,8 @@ class IssuesController < ApplicationController
   # DELETE /issues/1.json
   def destroy
     @issue.destroy
-    respond_to do |format|
-      format.html { redirect_to project_path(@project), notice: 'Issue was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:success] = 'Issue was successfully destroyed.'
+    render js: "window.location = '#{project_issues_path(@project.id)}'"
   end
 
   private

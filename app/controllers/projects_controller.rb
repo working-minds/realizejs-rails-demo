@@ -34,17 +34,12 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    #@project = Project.new(project_params)
     @project = Project.new(params.require(:project).permit(:name))
-
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.save
+      flash[:success] = 'Project was successfully created.'
+      render js: "window.location = '#{projects_path}'"
+    else
+      render json: @project.errors, status: :unprocessable_entity
     end
   end
 
@@ -52,15 +47,11 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1.json
   def update
     @project = Project.find(params[:id])
-
-    respond_to do |format|
-      if @project.update(params.require(:project).permit(:name))
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.update(params.require(:project).permit(:name))
+      flash[:success] = 'Project was successfully updated.'
+      render js: "window.location = '#{projects_path}'"
+    else
+      render json: @project.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,10 +60,8 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     @project.destroy
-    respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:success] = 'Project was successfully destroyed.'
+    render js: "window.location = '#{projects_path}'"
   end
 
   private

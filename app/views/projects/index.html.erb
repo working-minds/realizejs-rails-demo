@@ -27,6 +27,15 @@
         }
       }
     },
+    actionButtons: {
+      extend: true,
+      member: [
+        {
+          icon: :assignment,
+          href: '/projects/:id/issues'
+        }
+      ]
+    },
     data: {
       dataRows: @projects,
       count: @projects.total_count
