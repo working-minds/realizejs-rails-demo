@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Issues Crud</title>
+  <title>Realize Projects</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= react_component('Header') %>
+  <%= react_component('AppHeader', { title: 'Realize Projects' }) %>
   <div class="container">
     <%= yield %>
   </div>
