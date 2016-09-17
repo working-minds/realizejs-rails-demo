@@ -373,12 +373,18 @@ $colors: (
       .#{$color_name}-text {
         color: $color_value !important;
       }
+      .#{$color_name}-border {
+        border-color: $color_value !important;
+      }
     }
     @else {
       .#{$color_name}.#{$color_type} {
         background-color: $color_value !important;
       }
       .#{$color_name}-text.text-#{$color_type} {
+        color: $color_value !important;
+      }
+      .#{$color_name}-border.border-#{$color_type} {
         color: $color_value !important;
       }
     }
@@ -392,6 +398,9 @@ $colors: (
   }
   .#{$color}-text {
     color: $color_value !important;
+  }
+  .#{$color}-border {
+    border-color: $color_value !important;
   }
 }
 

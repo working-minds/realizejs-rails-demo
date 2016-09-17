@@ -12,7 +12,8 @@
     "tests"
   ],
   "dependencies": {
-    "realizejs": "~0.8.28"
+    "realizejs": "~0.8.28",
+    "jquery-ui": "*"
   },
 
   "exportsOverride": {
@@ -25,10 +26,12 @@
     "jquery.inputmask":{
       "js": ["dist/jquery.inputmask.bundle.js"]
     },
+    "jquery-ui": {
+      "js": ["jquery-ui.js"]
+    },
     "materialize": {
       "js": "dist/js/materialize.js",
-      "css": "dist/css/materialize.css",
-      "fonts": ["dist/font/material-design-icons/*", "dist/font/roboto/*"]
+      "css": "sass"
     },
     "realizejs": {
       "js": "dist/js/realize.js",

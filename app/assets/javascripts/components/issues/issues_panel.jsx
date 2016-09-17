@@ -2,43 +2,39 @@ class IssuesPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPanel: props.selectedPanel
+      renderMode: props.renderMode
     }
   }
 
   render() {
     return (
       <div className="issues-panel">
-        <InputSwitch offLabel="Grid" onLabel="Kanban" onChange={this.handleSwitchChange.bind(this)} />
+        <InputSwitch offLabel="Grid" onLabel="Kanban" checked={this.state.renderMode == 'kanban'} onChange={this.handleSwitchChange.bind(this)} />
         <div className="issues-panel__container">
-          {this.renderPanel()}
+          <Card title={this.props.title}>
+            <FlashMessages messages={this.props.flashMessages} />
+            <KanbanGrid {...this.props.grid} renderMode={this.state.renderMode} />
+            <Button name="Back" style="cancel" element="a" href={"/"} />
+          </Card>
         </div>
       </div>
-    )
-  }
-
-  renderPanel() {
-    switch(this.state.selectedPanel) {
-      case 'grid':
-        return <IssuesGrid {...this.props} />;
-      case 'kanban':
-        return <IssuesKanban {...this.props} />;
-      default:
-        return <span />;
-    }
+    );
   }
 
   handleSwitchChange(event) {
     this.setState({
-      selectedPanel: (event.target.checked ? 'kanban' : 'grid')
+      renderMode: (event.target.checked ? 'kanban' : 'grid')
     });
   }
 }
 
 IssuesPanel.propTypes = {
-  selectedPanel: React.PropTypes.oneOf(['grid', 'kanban'])
+  title: React.PropTypes.string,
+  flashMessages: React.PropTypes.object,
+  grid: React.PropTypes.object,
+  renderMode: React.PropTypes.oneOf(['grid', 'kanban'])
 };
 
 IssuesPanel.defaultProps = {
-  selectedPanel: 'grid'
+  renderMode: 'kanban'
 };

@@ -35,10 +35,16 @@ class IssuesController < ApplicationController
   # POST /issues
   # POST /issues.json
   def create
-    @issue = @project.issues.create((params.require(:issue).permit(:title, :description)))
+    @issue = @project.issues.create((params.require(:issue).permit(:title, :description, :status)))
     if @issue.save
-      flash[:success] = 'Issue was successfully created.'
-      render js: "window.location = '#{project_issues_path(@project.id)}'"
+
+      respond_to do |format|
+        format.js {
+          flash[:success] = 'Issue was successfully created.'
+          render js: "window.location = '#{project_issues_path(@project.id)}'"
+        }
+        format.json { render json: @issue, status: :created }
+      end
     else
       render json: @issue.errors, status: :unprocessable_entity
     end
@@ -47,9 +53,14 @@ class IssuesController < ApplicationController
   # PATCH/PUT /issues/1
   # PATCH/PUT /issues/1.json
   def update
-    if @issue.update(params.require(:issue).permit(:title, :description))
-      flash[:success] = 'Issue was successfully updated.'
-      render js: "window.location = '#{project_issues_path(@project.id)}'"
+    if @issue.update(params.require(:issue).permit(:title, :description, :status))
+      respond_to do |format|
+        format.js {
+          flash[:success] = 'Issue was successfully updated.'
+          render js: "window.location = '#{project_issues_path(@project.id)}'" }
+
+        format.json { render json: @issue }
+      end
     else
       render json: @issue.errors, status: :unprocessable_entity
     end
