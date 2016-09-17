@@ -9,3 +9,15 @@
   padding: 2px 5px;
   color: white;
 }
+
+.issues-panel {
+  .input-switch {
+    margin-bottom: 0;
+    margin-top: 1.5rem;
+    float: right;
+  }
+
+  .issues-panel__container {
+    clear: both;
+  }
+}
