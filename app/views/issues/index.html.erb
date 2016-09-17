@@ -10,6 +10,10 @@
       description: {
         label: 'Description'
       },
+      status: {
+        label: 'Status',
+        component: 'IssueStatus'
+      },
       created_at: {
         label: 'Created At',
         format: 'datetime'
@@ -25,11 +29,14 @@
         description_cont: {
           label: 'Description'
         },
-        created_at: {
-          component: 'datefilter',
-          label: 'Created At',
-          fromPredicate: 'gteq',
-          toPredicate: 'lteq'
+        status_eq: {
+          label: 'Status',
+          component: :select,
+          options: [
+            { name: 'To Do', value: 0 },
+            { name: 'In Progress', value: 1 },
+            { name: 'Done', value: 2 }
+          ]
         }
       }
     },
