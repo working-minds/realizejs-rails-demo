@@ -9,9 +9,9 @@ class IssuesPanel extends React.Component {
   render() {
     return (
       <div className="issues-panel">
-        <InputSwitch offLabel="Grid" onLabel="Kanban" checked={this.state.renderMode == 'kanban'} onChange={this.handleSwitchChange.bind(this)} />
         <div className="issues-panel__container">
           <Card title={this.props.title}>
+            <InputSwitch offLabel="Grid" onLabel="Kanban" checked={this.state.renderMode == 'kanban'} onChange={this.handleSwitchChange.bind(this)} />
             <FlashMessages messages={this.props.flashMessages} />
             <KanbanGrid {...this.props.grid} renderMode={this.state.renderMode} />
             <Button name="Back" style="cancel" element="a" href={"/"} />
