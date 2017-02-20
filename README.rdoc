@@ -8,7 +8,7 @@ Esse Tutorial tem como objetivo auxiliar o usuário na conversão de um projeto,
 
 === Selecione um gestor de pacotes
 
-	É necessário obter o Realize.js para pelo http://bower.io[Bower] ou como um https://www.npmjs.com/package/realize-js[pacote node] . Para esse tutorial em específico foi empregado o Bower.
+	É necessário obter o Realize.js para pelo Bower[http://bower.io/] ou pelo NPM[https://www.npmjs.com/package/realize-js]. Para esse tutorial em específico foi empregado o Bower.
 
 === Escolha um editor de texto ou IDE
 
