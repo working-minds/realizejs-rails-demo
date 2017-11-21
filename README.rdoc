@@ -1,5 +1,5 @@
 == Tutorial
-		
+
 Esse Tutorial tem como objetivo auxiliar o usuário na conversão de um projeto, criado pelo mesmo, para o React. Para exemplificar como funciona esse processo de conversão,  foi criado, em Rails, um projeto de CRUD (Create, Read, Update e Delete) simples de Projetos e Issues.
 
 == Pré-requisitos
@@ -14,7 +14,7 @@ Esse Tutorial tem como objetivo auxiliar o usuário na conversão de um projeto,
 
 	Para facilitar tanto a criação de seu projeto de CRUD, quanto a conversão do mesmo para React, é recomendado a utlização de uma IDE, como o RubyMine, ou um editor de texto, como o Atom. Para esse tutorial foi empregado o RubyMine.
 
-=== Ransack 
+=== Ransack
 
 	A Ransack é uma Meta Search, criada por Ernie Miller, compatível para Ruby and Rails. Para mais informações acesse https://github.com/activerecord-hackery/ransack.
 
@@ -133,7 +133,7 @@ Realize.setConfig({
  }
 });
 ---
- 	Após essas alterações já é possível converter as views do CRUD para React. 
+ 	Após essas alterações já é possível converter as views do CRUD para React.
 
 == Conversão das Views
 
@@ -183,3 +183,21 @@ E
 
 Para as Views é necessário ver os componentes do Realize, para realizar as implementações necessárias. Para a CRUD de Projeto e Issues foram utilizados os componentes: Form, Grid e Button.
 
+
+== Para rodar a aplicação com Docker executar os seguintes comandos:
+
+[source,bash]
+---
+	docker run --name realizejs-demo-mysql -d \
+	  -e MYSQL_USER=realizejs-demo -e MYSQL_PASSWORD=1234 \
+	  -e MYSQL_DATABASE=realizejs-rails-demo -e MYSQL_ROOT_PASSWORD=12345 \
+	  mysql:5.5
+---
+
+[source,bash]
+---
+	docker run --name realizejs-rails-demo-01 -p 8085:3000 -d \
+		-e DB_USERNAME=realizejs-demo -e DB_PASSWORD=1234 \
+		--link realizejs-demo-mysql:mysql-realizejs-rails-demo \
+		realizejs-rails-demo
+---
