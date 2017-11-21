@@ -1,0 +1,45 @@
+{
+  "name": "crud_issues",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "realizejs": "~0.8.28",
+    "jquery-ui": "*"
+  },
+
+  "exportsOverride": {
+    "jquery": {
+      "js": "dist/jquery.js"
+    },
+    "jquery-serialize-object": {
+      "js": "jquery.serialize-object.js"
+    },
+    "jquery.inputmask":{
+      "js": ["dist/jquery.inputmask.bundle.js"]
+    },
+    "jquery-ui": {
+      "js": ["jquery-ui.js"]
+    },
+    "materialize": {
+      "js": "dist/js/materialize.js",
+      "css": "sass"
+    },
+    "realizejs": {
+      "js": "dist/js/realize.js",
+      "css": "dist/css/realize.css"
+    },
+    "string":{
+      "js": ["dist/string.js"]
+    }
+  }
+
+}

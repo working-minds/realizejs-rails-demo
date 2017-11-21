@@ -1,4 +1,15 @@
-<h1>New Project</h1>
-
-<%= render 'form' %>
-<%= link_to 'Back', projects_path %>
+<%=
+  render 'form', locals: {
+    title: 'New Project',
+    httpMethod: 'POST',
+    action: projects_path,
+    otherButtons: [
+      {
+        name: 'Back',
+        style: :cancel,
+        element: :a,
+        href: projects_path
+      }
+    ]
+  }
+%>

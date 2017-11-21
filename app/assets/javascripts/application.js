@@ -12,6 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/jquery-ui
 //= require turbolinks
+//= require react_ujs
+//= require materialize/materialize
+//= require string/string
+//= require jquery-serialize-object/jquery.serialize-object
+//= require jquery.inputmask/jquery.inputmask.bundle
+//= require realizejs/realize
 //= require_tree .
 

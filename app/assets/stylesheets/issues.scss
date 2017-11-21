@@ -1,3 +1,82 @@
 // Place all the styles related to the issues controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.issue-status {
+  display: inline-block;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2px 5px;
+  color: white;
+}
+
+.issues-panel {
+  .input-switch {
+    margin-bottom: 0;
+    margin-top: 1.5rem;
+    position: absolute;
+    top: 1.5em;
+    right: 1.5em;
+  }
+
+  .issues-panel__container {
+    clear: both;
+  }
+}
+
+.issues-kanban {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  .issues-kanban__column {
+    float: left;
+    width: 33.3%;
+
+    .column__title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .column__cards {
+      min-height: 500px;
+      margin-right: 3%;
+      padding: 2%;
+    }
+
+    &:last-child .column__cards {
+      margin-right: 0;
+    }
+  }
+
+  .issues-kanban__card {
+    background-color: white;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    padding: 5px;
+    cursor: move;
+
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #80deea;
+
+    &.ui-draggable-dragging {
+      z-index: 10000;
+    }
+
+    .card__title {
+      margin-bottom: 10px;
+      font-size: 1rem;
+
+      .card__title-icon {
+        font-size: 1rem;
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .card__description {
+      font-size: 0.8rem;
+      margin-left: 1rem;
+    }
+  }
+}

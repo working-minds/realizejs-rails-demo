@@ -1,4 +1,15 @@
-<h1>New Issue</h1>
-
-<%= render 'form' %>
-<%= link_to 'Back', project_path(id: @project.id) %>
+<%=
+  render 'form', locals: {
+    title: "New #{@project.name} Issue",
+    httpMethod: 'POST',
+    action: project_issues_path(@project.id),
+    otherButtons: [
+      {
+        name: 'Back',
+        style: :cancel,
+        element: :a,
+        href: project_issues_path(@project.id)
+      }
+    ]
+  }
+%>

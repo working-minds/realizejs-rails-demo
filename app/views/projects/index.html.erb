@@ -1,31 +1,52 @@
-<p id="notice"><%= notice %></p>
+<%
+  grid_props = {
+    url: projects_path,
+    eagerLoad: false,
+    paginationOnTop: false,
+    columns: {
+      name: {
+        label: 'Name'
+      },
+      created_at: {
+        label: 'Created At',
+        format: 'datetime'
+      }
+    },
+    filter: {
+      resource: 'q',
+      collapsible: true,
+      inputs: {
+        name_cont: {
+          label: 'Name'
+        },
+        created_at: {
+          component: 'datefilter',
+          label: 'Created At',
+          fromPredicate: 'gteq',
+          toPredicate: 'lteq'
+        }
+      }
+    },
+    actionButtons: {
+      extend: true,
+      member: [
+        {
+          icon: :assignment,
+          href: '/projects/:id/issues'
+        }
+      ]
+    },
+    data: {
+      dataRows: @projects,
+      count: @projects.total_count
+    }
+  }
+%>
 
-<h1>Listing Projects</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.name %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Project', new_project_path %>
-
-<div class="card">
-  <div class="card-content">
-  </div>
-</div>
+<%=
+  react_component 'ProjectsGrid', {
+    title: 'Listing Projects',
+    grid: grid_props,
+    flashMessages: flash.to_h
+  }
+%>

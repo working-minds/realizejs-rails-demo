@@ -1,6 +1,22 @@
-<h1>Editing Project</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<%=
+  render 'form', locals: {
+    title: 'Editing Project',
+    httpMethod: 'PUT',
+    action: project_path(@project.id),
+    otherButtons: [
+      {
+        name: 'Back',
+        style: :cancel,
+        element: :a,
+        href: projects_path
+      },
+      {
+        name: 'Issues',
+        style: :cancel,
+        element: :a,
+        icon: :assignment,
+        href: project_issues_path(@project.id)
+      }
+    ]
+  }
+%>
