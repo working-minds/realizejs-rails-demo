@@ -184,20 +184,18 @@ E
 Para as Views é necessário ver os componentes do Realize, para realizar as implementações necessárias. Para a CRUD de Projeto e Issues foram utilizados os componentes: Form, Grid e Button.
 
 
-Para rodar a aplicação com Docker executar os seguintes comandos:
+## Para rodar a aplicação com Docker executar os seguintes comandos:
 
-[source,bash]
----
+```shell
 docker run --name realizejs-demo-mysql -d \
   -e MYSQL_USER=realizejs-demo -e MYSQL_PASSWORD=1234 \
   -e MYSQL_DATABASE=realizejs-rails-demo -e MYSQL_ROOT_PASSWORD=12345 \
   mysql:5.5
----
+```
 
-[source,bash]
----
+```shell
 docker run --name realizejs-rails-demo-01 -p 8085:3000 -d \
 	-e DB_USERNAME=realizejs-demo -e DB_PASSWORD=1234 \
 	--link realizejs-demo-mysql:mysql-realizejs-rails-demo \
 	realizejs-rails-demo
----
+```
